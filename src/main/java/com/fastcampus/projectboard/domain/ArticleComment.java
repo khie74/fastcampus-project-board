@@ -19,10 +19,11 @@ import java.util.Objects;
     @Index(columnList = "createdAt"),
     @Index(columnList = "createdBy")
 })
-// 엔티티에서도 auditing을 쓴다는 것을 명시해야 한다.
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners 어노테이션은 AuditingFields로 이동
+//// 엔티티에서도 auditing을 쓴다는 것을 명시해야 한다.
+//@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleComment {
+public class ArticleComment extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,10 +37,13 @@ public class ArticleComment {
     @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
     @Setter @Column(nullable = false, length = 500) private String content; // 본문
 
+    /*
+    이 내용은 AuditingFields 클래스로 이동
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt; // 생성일시
     @CreatedBy @Column(nullable = false, length = 100) private String createdBy; // 생성자
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt; // 수정일시
     @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy; // 수정자
+    */
 
     // 롬복으로도 할 수 있다. @NoArgsConstructor(access = ...)
     // 어차피 한 줄이어서 그냥 씀.

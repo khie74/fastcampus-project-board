@@ -21,13 +21,19 @@ import java.util.Set;
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
+
+        // auditing field들은 아쉽게도 별도의 클래스로 분리 불가
+        // 즉, AuditingFields 클래스로 이동 불가
+
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-// 엔티티에서도 auditing을 쓴다는 것을 명시해야 한다.
-@EntityListeners(AuditingEntityListener.class)
+
+//@EntityListeners 어노테이션은 AuditingFields로 이동
+//// 엔티티에서도 auditing을 쓴다는 것을 명시해야 한다.
+//@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     // primary key로 지정
     @Id
     // 자동으로 증가하게 설정
@@ -54,6 +60,9 @@ public class Article {
     @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
+    /*
+    이 내용은 AuditingFIelds 클래스로 이동시킴.
+
     // 아래 필드들은 JPA에서 자동으로 세팅되도록 설정
     // 아래처럼 어노테이션을 붙여주는 것만으로 auditing이 자동으로 동작한다.
     @CreatedDate
@@ -70,6 +79,7 @@ public class Article {
     @LastModifiedBy
     @Column(nullable = false, length = 100)
     private String modifiedBy; // 수정자
+     */
 
     // Entity로써의 기본기능을 만족시키기 위한 내용을 추가
 
