@@ -86,7 +86,18 @@ spring:
       # never, always, embeded(임베디드 DB로 사용될 때만 작동, 즉 테스트에서만 작동)
       mode: always
 
+
+  # Spring Data REST 모듈을 추가하면서 추가
+  data:
+    rest:
+      base-path: /api
+      # 어노테이션으로 노출한 repository만 REST API로 노출하겠다는 의미
+      detection-strategy: annotated
+
+
+
 # yaml 파일은 '-' 3개로 서로 다른 문서를 작성할 수 있다.
+
 
 ---
 # 테스트 데이터베이스용 문서
@@ -106,3 +117,6 @@ spring:
 #  # 테스트 DB 자동 replaction 기능을 사용하지 말아라.
 #  # 내가 설정한 파일을 사용하기 위해서 아래를 추가한다.
 #  test.database.replace: none
+
+
+
