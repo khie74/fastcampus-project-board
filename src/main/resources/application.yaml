@@ -31,6 +31,12 @@ spring:
     username: sks
     password: rjatn03$
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+#    # 서버 기동해서 h2 console로 접속해 보기 위해서 데이터소스를 잠깐 MySQL에서 h2로 변경해서 테스트해 보았다.
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    driver-class-name: org.h2.Driver
+
   jpa:
     # Spring Boot 2.4에서 새로 생김.
     # 테스트용 데이터베이스 데이터를 생성할 수 있게끔 한다.
@@ -71,7 +77,9 @@ spring:
   h2:
     console:
       # H2의 웹 콘솔 활성화 여부
-      enabled: true
+      # 기본값이 false이므로 지우면 된다.
+      # 근데 나중에 확인차 삭제하지는 않았다.
+      enabled: false
   sql:
     init:
       # 리소스에 만든 data.sql을 어제 작동시킬지에 대한 규칙 설정
