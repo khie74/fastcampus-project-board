@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<!-- xmlns...를 쓰면, 이 문서는 단순한 HTML문서가 아니라 thymeleaf 템플릿임을 알려준다. -->
+<!-- 현재는 이게 없어도 잘 동작하는 것 같으나, 이전 버전에서는 타임리프가 제대로 동작하지 않았다고 한다. -->
+<!-- 가이드에 있으니 그냥 쓰자. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>게시판 페이지</title>
 </head>
 <body>
-    <header>
-        header 삽입부
-        <hr />
-    </header>
+    <!-- header 파일에서 header element를 찾아라. -->
+    <!-- :: 뒤에는 태그명, #아이디, .클래스와 같은 걸로 지정할 수 있다. -->
+    <header th:replace="header :: header"></header>
 
     <main>
         <form>
@@ -73,10 +75,6 @@
 
     </main>
 
-    <footer>
-        <hr />
-        footer 삽입부
-    </footer>
-
+    <footer th:replace="footer :: footer"></footer>
 </body>
 </html>
