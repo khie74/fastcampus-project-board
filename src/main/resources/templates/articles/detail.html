@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- xmlns...를 쓰면, 이 문서는 단순한 HTML문서가 아니라 thymeleaf 템플릿임을 알려준다. -->
+<!-- 현재는 이게 없어도 잘 동작하는 것 같으나, 이전 버전에서는 타임리프가 제대로 동작하지 않았다고 한다. -->
+<!-- 가이드에 있으니 그냥 쓰자. -->
+<!-- decoupled template logic 적용하면서 제거 -->
+<!--
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+-->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+</head>
+<body>
+    <!-- header 파일에서 header element를 찾아라. -->
+    <!-- :: 뒤에는 태그명, #아이디, .클래스와 같은 걸로 지정할 수 있다. -->
+    <header id="header"></header>
+
+    <main>
+        <header>
+            <h1>첫번째 글</h1>
+        </header>
+
+        <aside>
+            <p>Sks</p>
+            <p><a href="mailto:abc@def.com"></a></p>
+            <p><time datetime="2024-02-22T00:00:00">2024-02-22</time></p>
+            <p>#java</p>
+        </aside>
+
+        <section>
+            <!-- 게시글 내용 -->
+            <p>
+                본문
+                <br />
+            </p>
+
+            <!-- 댓글 쓰기 -->
+            <div>
+                <form>
+                    <label for="articleComment" hidden></label>
+                    <textarea id="articleComment" placeholder="댓글 쓰기..." rows="3"></textarea>
+                    <button type="submit">쓰기</button>
+                </form>
+            </div>
+
+            <!-- 기존 댓글 -->
+            <ul>
+                <li>
+                    <div>
+                        <time><small>2024-01-01</small></time>
+                        <strong>Sks</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur...
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <time><small>2024-01-01</small></time>
+                        <strong>Kim</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur...
+                        </p>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 이전글, 다음글 -->
+            <nav>
+                <a href="#">이전 글</a>
+                <a href="#">다음 글</a>
+            </nav>
+        </section>
+    </main>
+
+    <footer id="footer"></footer>
+</body>
+</html>
