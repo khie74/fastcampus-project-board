@@ -63,6 +63,9 @@ dependencies {
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
     annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
+    // Thymeleaf - 서버사이드 자바 템플릿 엔진
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 // 버전을 제대로 읽어오는지 확인하기...
