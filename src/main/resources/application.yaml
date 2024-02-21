@@ -94,7 +94,14 @@ spring:
       # 어노테이션으로 노출한 repository만 REST API로 노출하겠다는 의미
       detection-strategy: annotated
 
-
+  # 내가 만든 프로퍼티
+  # 사용자가 만든 속성이므로, gradle clean build를 하면 경고가 발생할 수 있다.
+  #
+  # spring-boot-configuration-processor를 의존성에 추가하면
+  # 사용자 커스텀 프로퍼티에도 문서 세팅이 가능해지고, IDE 지원을 받을 수 있다.
+  # (thymeleaf3 프로퍼티를 만들면서 추가함)
+  thymeleaf3:
+    decoupled-logic: true
 
 # yaml 파일은 '-' 3개로 서로 다른 문서를 작성할 수 있다.
 
