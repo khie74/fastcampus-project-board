@@ -66,6 +66,10 @@ dependencies {
 
     // Thymeleaf - 서버사이드 자바 템플릿 엔진
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // 커스텀 configuration key(ex. application.yaml)로 작업할 때
+    // 상황별(context) 도움말 및 "code completion"을 제공할 수 있도록 메타 데이터를 생성한다.
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 // 버전을 제대로 읽어오는지 확인하기...
