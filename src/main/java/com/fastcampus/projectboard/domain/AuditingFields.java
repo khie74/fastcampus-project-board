@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @ToString
 @Getter
-public class AuditingFields {
+public abstract class AuditingFields {
     // 웹화면에 표시할 때 파싱을 위한 룰을 넣어준다.
     // Spring Framework formmater 어노테이션중에 @DateTimeFormat이 있다.
     // 이걸 통해서 할 수 있다.
