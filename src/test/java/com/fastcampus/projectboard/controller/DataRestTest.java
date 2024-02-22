@@ -11,13 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 //import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@Disabled("Spring Data REST 통합테스트는 불필요하므로 제외시킴")
+//@Disabled("Spring Data REST 통합테스트는 불필요하므로 제외시킴")
 // @WebMvcTest를 사용하면 Mock mvc를 사용할 수 있게 준비해 준다. 아래 코드 참조
 // @WebMvcTest는 Slice 테스트이다. 컨트롤러외의 빈들을 로드하지 않는다. 불필요하다고 판단한 것을을 로드하지 않는다.
 // 그래서 아래 테스트 함수는 실패한다.
@@ -94,5 +94,19 @@ public class DataRestTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
         //.andDo(print());
+    }
+
+    @DisplayName("[api] 회원 관련 API는 일체 제공하지 않는다.")
+    @Test
+    void givenNothing_whenRequestingAccounts_thenThrowsException() throws Exception {
+        // Given
+
+        // When & Then
+        mvc.perform(get("/api/userAccounts")).andExpect(status().isNotFound());
+        mvc.perform(post("/api/userAccounts")).andExpect(status().isNotFound());
+        mvc.perform(put("/api/userAccounts")).andExpect(status().isNotFound());
+        mvc.perform(patch("/api/userAccounts")).andExpect(status().isNotFound());
+        mvc.perform(delete("/api/userAccounts")).andExpect(status().isNotFound());
+        mvc.perform(head("/api/userAccounts")).andExpect(status().isNotFound());
     }
 }

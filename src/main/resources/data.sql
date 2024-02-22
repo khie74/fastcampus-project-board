@@ -13,3 +13,8 @@ insert into article_comment (article_id, content, created_at, created_by, modifi
 (3, '댓글3-1', '2024-01-02 13:30', '삐약이', '2024-01-02 13:30', '삐약이'),
 (3, '댓글3-2', '2024-01-03 14:30', '꿀꿀이', '2024-01-03 14:30', '꿀꿀이');
 
+
+-- 계정 정보
+-- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을지 고민이다.
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+('hgd', '12345', '길동이', 'abc@gmail.com', 'I am 홍길동.', now(), '홍길동', now(), '홍길동');
