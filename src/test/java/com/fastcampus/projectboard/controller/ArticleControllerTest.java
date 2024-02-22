@@ -1,10 +1,12 @@
 package com.fastcampus.projectboard.controller;
 
+import com.fastcampus.projectboard.config.SecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -17,6 +19,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@WebMvcTest
 // 그러므로 테스트 대상이 되는 컨트롤러만 로드하게 아래처럼 하면 된다.
 @WebMvcTest(ArticleController.class)
+// 기본 웹 시큐리티를 불러오면 테스트가 실패한다.
+// 우리가 설정한 설정을 가져오게 하기 위해서, 우리가 만든 Security Config를 읽도록 추가하였다.
+@Import(SecurityConfig.class)
 class ArticleControllerTest {
     private final MockMvc mvc;
 

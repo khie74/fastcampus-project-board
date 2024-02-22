@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
+import com.fastcampus.projectboard.config.SecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@Disabled("Spring Data REST 통합테스트는 불필요하므로 제외시킴")
+@Disabled("Spring Data REST 통합테스트는 불필요하므로 제외시킴")
 // @WebMvcTest를 사용하면 Mock mvc를 사용할 수 있게 준비해 준다. 아래 코드 참조
 // @WebMvcTest는 Slice 테스트이다. 컨트롤러외의 빈들을 로드하지 않는다. 불필요하다고 판단한 것을을 로드하지 않는다.
 // 그래서 아래 테스트 함수는 실패한다.
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Data REST 테스트")
 // @Transactional을 추가하면, 테스트에서 동작하는 트랜잭션의 기본 동작은 rollback이 된다.(각각의 unit test들은 rollback과 묶이게 된다)
 @Transactional
+//TODO - 테스트가 제대로 돌려면 SecurityConfig 설정을 임포트해야 한다. 타 테스트파일 참조
 public class DataRestTest {
     private final MockMvc mvc;
 
