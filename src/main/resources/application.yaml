@@ -38,6 +38,8 @@ spring:
 #    driver-class-name: org.h2.Driver
 
   jpa:
+
+
     # Spring Boot 2.4에서 새로 생김.
     # 테스트용 데이터베이스 데이터를 생성할 수 있게끔 한다.
     # 리소스안에 쿼리 파일을 만들어 놓고, 이를 활용하게 된다.
@@ -74,6 +76,19 @@ spring:
         # 이 설정을 하면, 지정한 개수만큼 IN 절로 묶어서 쿼리를 보내게 된다.
         #
         default_batch_fetch_size: 100
+
+    # 영속성 컨텍스트가 데이터베이스 커넥션을 언제 돌려주냐를 설정할 수 있다.
+    # 예를 들어 @Transactional이 붙은 메소드를 실행하면
+    # 데이터 트랜젝션이 실행되고, 영속성 컨텍스트가 데이터베이스 커넥션을 받아서 처리하게 된다.
+    # 해당 메소드가 끝이 날 때
+    # open-in-view가 true이면 영속성 컨텍스트가 데이터베이스 커넥션을 반납하지 않고,
+    # open-in-view가 false이면 영속성 컨텍스트가 데이터베이스 커넥션을 반납한다.
+    #
+    # true는 언제사용하나? admin과 같이 사용량이 많지 않은 경우
+    #
+    # OSIV(Open Session In View)
+    #
+    open-in-view: false
   h2:
     console:
       # H2의 웹 콘솔 활성화 여부
