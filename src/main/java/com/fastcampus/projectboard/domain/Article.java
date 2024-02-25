@@ -17,7 +17,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+// AuditingFields까지 toString오로 찍기 위해서 callSuper=true 옵션을 추가
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -42,6 +43,9 @@ public class Article extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보(ID)
+
+
     // 사용자가 특정 필드값을 변경할 수 없도록 일부 필드에만 @Setter를 건다.
     @Setter @Column(nullable = false) private String title; // 제목
     @Setter @Column(nullable = false, length = 10000) private String content; // 본문
@@ -55,7 +59,8 @@ public class Article extends AuditingFields {
     // 운영에서는 그렇지 않을 수 있다. 백업 목적으로 남기고 싶을 수 있기 떄문이다.
     // 또한 성능을 위해서도 foreign key를 걸지 않느 경우도 많다.
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    @OrderBy("id")
+    //@OrderBy("id")
+    @OrderBy("createdAt DESC")
     // toString에서 순환참조가 발생할 수 있으므로, toString대상에서 제외 시킨다.
     @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
@@ -88,14 +93,14 @@ public class Article extends AuditingFields {
     protected Article() {}
 
     // 메타 데이터는 제외하고, 실제로 입력받는 필드만을 받는 생성자를 만든다.
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
     // 동일성, 동등성 검사를 위한 equals, hashCode를 만들어야 한다.

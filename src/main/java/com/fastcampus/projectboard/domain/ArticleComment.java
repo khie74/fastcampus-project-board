@@ -8,12 +8,14 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 
 @Getter
-@ToString
+// toString할 때 AuditingFields 클래스의 내용도 표시하도록 callSuper=true 옵션을 추가
+@ToString(callSuper = true)
 @Table(indexes = {
     @Index(columnList = "content"),
     @Index(columnList = "createdAt"),
@@ -35,6 +37,7 @@ public class ArticleComment extends AuditingFields {
     // 댓글을 변경하거나 지웠을 때 관련된 계시물에 영향을 미치지 않는다.
     // 그러므로 캐스캐이딩 옵션은 주지 않는다.
     @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
+    @Setter @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
     @Setter @Column(nullable = false, length = 500) private String content; // 본문
 
     /*
@@ -49,13 +52,13 @@ public class ArticleComment extends AuditingFields {
     // 어차피 한 줄이어서 그냥 씀.
     protected ArticleComment() {}
 
-    private ArticleComment(Article article, String content) {
+    private ArticleComment(Article article, UserAccount userAccount, String content) {
         this.article = article;
         this.content = content;
     }
 
-    public static ArticleComment of(Article article, String content) {
-        return new ArticleComment(article, content);
+    public static ArticleComment of(Article article, UserAccount userAccount, String content) {
+        return new ArticleComment(article, userAccount, content);
     }
 
 
