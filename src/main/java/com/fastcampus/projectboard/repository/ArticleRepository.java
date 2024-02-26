@@ -5,6 +5,8 @@ import com.fastcampus.projectboard.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -21,9 +23,12 @@ public interface ArticleRepository extends
         QuerydslBinderCustomizer<QArticle>
 {
 
+
+    Page<Article> findByTitle(String title, Pageable pageable);
+
+
     // Java 8 이후로 인터페이스 구현을 넣을 수 있게 되었다.
     // 인터페이스에 메소드 구현을 넣을 떄는 default method로 넣어야 한다.
-
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
