@@ -5,6 +5,8 @@ import com.fastcampus.projectboard.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -21,9 +23,18 @@ public interface ArticleRepository extends
         QuerydslBinderCustomizer<QArticle>
 {
 
+    // Containing을 붙이면 부분 일치도 검색에 걸린다.
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
+    Page<Article> findByContentContaining(String content, Pageable pageable);
+    // Article이 들고 있는 UserAccount의 id로 검색을 해야 하므로 아래처럼 작성해야 한다.
+    Page<Article> findByUserAccount_IdContaining(String userId, Pageable pageable);
+    Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
+    //주의! 해시태그는 일종의 분류이므로, 정확하게 맞는 검우만 검색에 걸리게 하였다.
+    // 즉, 여기선 Containing을 넣지 않음.
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
+
     // Java 8 이후로 인터페이스 구현을 넣을 수 있게 되었다.
     // 인터페이스에 메소드 구현을 넣을 떄는 default method로 넣어야 한다.
-
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {

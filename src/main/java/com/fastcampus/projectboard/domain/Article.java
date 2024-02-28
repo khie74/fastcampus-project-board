@@ -94,6 +94,7 @@ public class Article extends AuditingFields {
 
     // 메타 데이터는 제외하고, 실제로 입력받는 필드만을 받는 생성자를 만든다.
     private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;

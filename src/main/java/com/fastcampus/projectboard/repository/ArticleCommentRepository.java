@@ -10,6 +10,8 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface ArticleCommentRepository extends
         JpaRepository<ArticleComment, Long /*id 타입*/>,
@@ -31,4 +33,11 @@ public interface ArticleCommentRepository extends
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
+
+    // 게시글 ID를 통해서 댓글을 검색한다.
+    // 이름에서 연관관계를 써주고, 언더바를 써주면 그 연관관계 객체로 들어간다는 의미
+    // 그러므로 언더버 뒤에 붙은 id는 게시글의 id가 된다.
+    List<ArticleComment> findByArticle_Id(Long articleId);
+
 }
