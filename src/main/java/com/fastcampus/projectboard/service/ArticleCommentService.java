@@ -28,6 +28,7 @@ public class ArticleCommentService {
                 .stream().map(it -> ArticleCommentDto.of(
                         it.getId(),
                         UserAccountDto.of(
+                                it.getUserAccount().getId(),
                                 it.getUserAccount().getUserId(),
                                 it.getUserAccount().getUserPassword(),
                                 it.getUserAccount().getEmail(),
