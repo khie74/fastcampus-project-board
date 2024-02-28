@@ -3,4 +3,22 @@
 <thlogic>
     <attr sel="#header" th:replace="header :: header" />
     <attr sel="#footer" th:replace="footer :: footer" />
+
+
+    <!-- tbody에서 첫번째 엘리먼트만 남기고 모두 삭제 -->
+    <attr sel="#article-table">
+        <attr sel="tbody" th:remove="all-but-first">
+            <attr sel="tr[0]" th:each="article : ${articles}">
+                <!-- 'td /a'는 td 안의 anchor 태그를 의미 -->
+                <!-- url 링크인 경우에는 @를 쓰나? -->
+                <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}" />
+                <attr sel="td.hashtag" th:text="${article.hashtag}" />
+                <attr sel="td.user-id" th:text="${article.nickname}" />
+                <!-- td 아래 time 태그(semantic tag) -->
+                <!-- data와 표현 2가지를 따로 넣어주는 점에 유의할 것.  -->
+                <!-- thymeleaf의 유틸리티에 temporals가 있는데 이걸로 여러 포메팅을 할 수 있다. -->
+                <attr sel="td.created-at/time" th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}" />
+            </attr>
+        </attr>
+    </attr>
 </thlogic>
